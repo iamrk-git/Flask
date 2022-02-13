@@ -63,7 +63,7 @@ def doRegister():
     
    
     cursor=mysql.connection.cursor()
-    cursor.execute('''INSERT INTO users VALUES(NULL,%s,%s,%s,%s,%s)''',(full_name,email,phone_number,password))
+    cursor.execute('''INSERT INTO users VALUES(NULL,%s,%s,%s,%s)''',(full_name,email,phone_number,password))
     mysql.connection.commit() #to write the data into databse we must commit()//for insert(),update()
     cursor.close()
 
