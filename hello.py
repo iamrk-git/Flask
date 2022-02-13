@@ -7,9 +7,9 @@ from flask_mysqldb import MySQL
 app= Flask(__name__)
 
 #Database settings for  mysql
-app.config['MYSQL_HOST']='127.0.0.1'
-app.config['MYSQL_USER']='root'
-app.config['MYSQL_PASSWORD']=''
+app.config['MYSQL_HOST']='localhost'
+app.config['MYSQL_USER']='db_user'
+app.config['MYSQL_PASSWORD']='1230'
 app.config['MYSQL_DB']='db_trekapp'
 
 mysql=MySQL(app) #initallizing mysql
@@ -53,7 +53,7 @@ def doLogin():
     else:
         return render_template('login.html',result="Invalid credentials")
 
-@app.route('/doRegister',methods=['post'])
+@app.route('/doRegister',methods=['POST'])
 def doRegister():
     full_name=request.form['full_name']
     email=request.form['email']
@@ -63,7 +63,7 @@ def doRegister():
     
    
     cursor=mysql.connection.cursor()
-    cursor.execute('''INSERT INTO users VALUES(NULL,%s,%s,%s,%s,%s)''',(full_name,email,phone_number,password))
+    cursor.execute('''INSERT INTO users VALUES(NULL,%s,%s,%s,%s,%s)''',(full_name,address,email,phone_number,password))
     mysql.connection.commit() #to write the data into databse we must commit()//for insert(),update()
     cursor.close()
 
@@ -71,4 +71,4 @@ def doRegister():
 
     
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
